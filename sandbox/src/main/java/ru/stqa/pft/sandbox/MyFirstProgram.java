@@ -4,27 +4,19 @@ package ru.stqa.pft.sandbox;
  * Created by kompu on 5/22/2016.
  */
 public class MyFirstProgram {
-    public static void main(String[] arg) {
-        hello("worl");
-        hello("Kate ");
-        hello("Olya ");
+  public static void main(String[] arg) {
 
-        Square s = new Square(5);
-        System.out.println(area(s));
+    Point p1 = new Point(5, 2);
+    Point p2 = new Point(4, 1);
+    System.out.println("Расстояние между двумя точками вызванно функцией = " + distance(p1, p2));
+    System.out.println("Расстояние мужду двумя точками вызванно методом =" + p1.distance(p2));
+  }
 
-        Rectangle r = new Rectangle(4,7);
-        System.out.println(area(r));
+  public static double distance(Point p1, Point p2) {
+    double distance;
+    distance = Math.sqrt(((p2.x - p1.x) * (p2.x - p1.x)) + ((p2.y - p1.y) * (p2.y - p1.y)));
+    return distance;
 
-    }
-    public static void hello( String somebody){
-        System.out.println("Hello " + somebody);
-    }
+  }
 
-    public static double area(Square s){
-        return s.l * s.l;
-    }
-
-    public static double area(Rectangle r){
-        return r.a * r.b;
-    }
 }
