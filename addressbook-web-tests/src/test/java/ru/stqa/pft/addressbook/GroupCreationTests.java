@@ -17,31 +17,24 @@ public class GroupCreationTests {
         wd = new FirefoxDriver();
         wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         wd.get("http://localhost/addressbook/");
-        login("admin", "secret");
     }
-
-    private void login(String username, String password) {
-        wd.findElement(By.id("LoginForm")).click();
-        wd.findElement(By.name("user")).click();
-        wd.findElement(By.name("user")).clear();
-        wd.findElement(By.name("user")).sendKeys(username);
-        wd.findElement(By.name("pass")).click();
-        wd.findElement(By.name("pass")).clear();
-        wd.findElement(By.name("pass")).sendKeys(password);
-        wd.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
-    }
-
+    
     @Test
-    public void testGroupCreation() {
+    public void GroupCreationTests() {
 
-        gotoGroupPage();
-        initGroupCreation();
+        login("admin", "secret");
+        gotoNewGroup();
+        createNewGroup();
         fillGroupForm(new GroupData("Test1", "test2", "test3"));
-        submitGroupCreation();
-        gotoGroupPage();
+        submitGroup();
+        returnToGroups();
     }
 
-    private void submitGroupCreation() {
+    private void returnToGroups() {
+        wd.findElement(By.linkText("group page")).click();
+    }
+
+    private void submitGroup() {
         wd.findElement(By.name("submit")).click();
     }
 
@@ -57,12 +50,22 @@ public class GroupCreationTests {
         wd.findElement(By.name("group_footer")).sendKeys(groupData.getFooter());
     }
 
-    private void initGroupCreation() {
+    private void createNewGroup() {
         wd.findElement(By.name("new")).click();
     }
 
-    private void gotoGroupPage() {
+    private void gotoNewGroup() {
         wd.findElement(By.linkText("groups")).click();
+    }
+
+    private void login(String username, String password) {
+        wd.findElement(By.name("pass")).click();
+        wd.findElement(By.name("pass")).clear();
+        wd.findElement(By.name("pass")).sendKeys(password);
+        wd.findElement(By.name("user")).click();
+        wd.findElement(By.name("user")).clear();
+        wd.findElement(By.name("user")).sendKeys(username);
+        wd.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
     }
 
     @AfterMethod
