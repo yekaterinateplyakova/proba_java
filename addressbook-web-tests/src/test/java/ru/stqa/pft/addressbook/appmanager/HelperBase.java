@@ -1,5 +1,5 @@
 package ru.stqa.pft.addressbook.appmanager;
-
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -39,4 +39,10 @@ public class HelperBase {
           wd.findElement(By.xpath("//div[@id='content']/form/select[1]//option["+ contactData.getDate() + "]")).click();
       }
   }
+
+  public void selectFromDropDownList(String selectLocator, int optionText) {
+
+    new Select(wd.findElement(By.xpath(selectLocator))).selectByIndex(optionText);
+  }
+
 }
