@@ -3,11 +3,13 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import ru.stqa.pft.addressbook.model.ContactData;
 
 /**
  * Created by kompu on 5/29/2016.
  */
 public class HelperBase {
+
   protected FirefoxDriver wd;
 
   public HelperBase(FirefoxDriver wd) {
@@ -30,5 +32,11 @@ public class HelperBase {
     } catch (NoAlertPresentException e) {
       return false;
     }
+  }
+
+  public void selectFormlist(ContactData contactData) {
+    if (!wd.findElement(By.xpath("//div[@id='content']/form/select[1]//option[" + contactData.getDate() + "]")).isSelected()) {
+          wd.findElement(By.xpath("//div[@id='content']/form/select[1]//option["+ contactData.getDate() + "]")).click();
+      }
   }
 }
