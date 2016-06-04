@@ -35,9 +35,8 @@ public class ApplicationManager {
     else if (browser == BrowserType.IE){
       wd = new InternetExplorerDriver();
     }
-    wd = new FirefoxDriver();
     wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-    wd.get("http://localhost/addressbook/");
+    wd.get("http://localhost:8080/addressbook/group.php");
     groupHelper = new GroupHelper(wd);
     navigationHelper = new NavigationHelper(wd);
     contactHelper = new ContactHelper(wd);
