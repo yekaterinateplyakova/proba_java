@@ -1,10 +1,13 @@
 package ru.stqa.pft.addressbook.appmanager;
 
+//import com.sun.org.apache.bcel.internal.generic.Select;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
-
+import org.openqa.selenium.support.ui.Select;
 /**
  * Created by kompu on 5/29/2016.
  */
@@ -22,7 +25,7 @@ public class ContactHelper extends HelperBase {
       click(By.linkText("home page"));
   }
 
-  public void fillContactForm(ContactData contactData) {
+  public void fillContactForm(ContactData contactData, boolean creation) {
       type(By.name("firstname"),contactData.getFirstName());
       type(By.name("middlename"),contactData.getMiddleName());
       type(By.name("lastname"),contactData.getLastName());
@@ -35,14 +38,16 @@ public class ContactHelper extends HelperBase {
       type(By.name("work"),contactData.getWorkphone());
       type(By.name("fax"),contactData.getFaxPhone());
       type(By.name("email"), contactData.getEmail());
+      selectFormlist(contactData);
+      selectFromDropDownList("//div[@id='content']/form/select[1]", contactData.getDate());
+      selectFromDropDownList("//div[@id='content']/form/select[2]", contactData.getMonth());
+      type(By.name("byear"),contactData.getYear());
 
-
-    selectFormlist(contactData);
-    selectFromDropDownList("//div[@id='content']/form/select[1]", contactData.getDate());
-    selectFromDropDownList("//div[@id='content']/form/select[2]", contactData.getMonth());
-
-    type(By.name("byear"),contactData.getYear());
-
+    if (creation) {
+      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+    } else {
+      Assert.assertFalse(isElementPresent(By.name("new_group")));
+    }
   }
 
   public void selectContact() {
