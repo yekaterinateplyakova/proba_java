@@ -24,6 +24,10 @@ public class NavigationHelper extends HelperBase{
 
 
   public void gotoAddNewContactPage() {
+    if (wd.findElement(By.tagName("h1")).getText().equals("Edit / add address book entry")
+            && wd.findElement(By.tagName("label")).getText().equals("Group")){
+      return;
+    }
     click(By.linkText("add new"));
   }
 
