@@ -60,8 +60,9 @@ public class ContactHelper extends HelperBase {
     wd.findElements(By.name("selected[]")).get(index).click();
   }
 
-  public void initContactModification() {
-    click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+  public void initContactModification(int index) {
+   // wd.findElements(By.name("selected[]")).get(index).click();
+    click(By.xpath(".//*[@id='maintable']/tbody/tr["+ index +"]/td[8]/a/img"));
   }
 
   public void submitContactModification() {
@@ -92,7 +93,7 @@ public class ContactHelper extends HelperBase {
       String lastName = cells.get(1).getText();
       String firstName = cells.get(2).getText();
       int id = Integer.parseInt(row.findElement(By.tagName("input")).getAttribute("value"));
-      ContactData contact = new ContactData(id, lastName, firstName, null, null);
+      ContactData contact = new ContactData(id,firstName, lastName,  null, null);
       contacts.add(contact);
     }
     return contacts;
