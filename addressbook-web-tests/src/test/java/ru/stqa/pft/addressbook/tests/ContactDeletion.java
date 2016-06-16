@@ -4,7 +4,6 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
-import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.Comparator;
 import java.util.List;
@@ -15,10 +14,10 @@ import java.util.List;
 public class ContactDeletion extends TestBase {
   @BeforeMethod
   public void ensurePreconditions(){
-    app.getNavigationHelper().gotoHome();
-    if (! app.getContactHelper().isThereAContact()){
-      app.getNavigationHelper().gotoAddNewContactPage();
-      app.getContactHelper().createContact(new ContactData("Yekaterina", "N", "Teplyakova", "Kate", "automation developer",
+    app.goTo().home();
+    if (! app.contact().isThereAContact()){
+      app.goTo().AddNewContact();
+      app.contact().createContact(new ContactData("Yekaterina", "N", "Teplyakova", "Kate", "automation developer",
               "Koolspan", "Bethestda", "301-240-234", "301-3234-234", "234-435-342", "32423-2342", "yekaterin@gmail.com",
               12, 11, "1989", "Test1"));
     }
@@ -27,11 +26,11 @@ public class ContactDeletion extends TestBase {
 
   @Test
   public void testContactDeletion(){
-    List<ContactData> before = app.getContactHelper().getContactList();
-    app.getContactHelper().selectContact(before.size() -1);
-    app.getContactHelper().deleteSelectedContact();
-    app.getNavigationHelper().gotoHome();
-    List<ContactData> after = app.getContactHelper().getContactList();
+    List<ContactData> before = app.contact().getContactList();
+    app.contact().selectContact(before.size() -1);
+    app.contact().deleteSelectedContact();
+    app.goTo().home();
+    List<ContactData> after = app.contact().getContactList();
     Assert.assertEquals(before.size()-1, after.size());
 
     before.remove(before.size() - 1);
