@@ -34,6 +34,7 @@ public class ContactModificationTests  extends TestBase {
             .withCompany("koolspan").withHomecell("301250652").withTitle("automation developer")
             .withEmail("yekaterin@gmail.com").withDate(12).withMonth(11).withYear("1989");
     int index =before.size() - 1;
+    System.out.println("before: " + index);
     app.contact().modify(contact, index);
     app.goTo().home();
     List<ContactData> after = app.contact().list();
