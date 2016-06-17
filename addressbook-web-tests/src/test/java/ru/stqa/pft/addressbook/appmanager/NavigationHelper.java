@@ -22,7 +22,7 @@ public class NavigationHelper extends HelperBase{
       click(By.linkText("groups"));
   }
 
-   public void AddNewContact() {
+   public void addNew() {
     if (wd.findElement(By.tagName("h1")).getText().equals("Edit / add address book entry")
             && wd.findElement(By.tagName("label")).getText().equals("Group")){
       return;
