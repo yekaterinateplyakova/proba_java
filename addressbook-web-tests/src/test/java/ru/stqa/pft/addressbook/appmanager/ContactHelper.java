@@ -61,7 +61,7 @@ public class ContactHelper extends HelperBase {
   }
 
   public void initContactModification(int index) {
-    click(By.xpath(".//*[@id='maintable']/tbody/tr["+ index + 2 +"]/td[8]/a/img"));
+    click(By.xpath(".//*[@id='maintable']/tbody/tr["+ (index + 2) +"]/td[8]/a/img"));
   }
 
   public void submitContactModification() {
@@ -81,7 +81,7 @@ public class ContactHelper extends HelperBase {
   }
 
   public void modify(ContactData contact, int index) {
-   initContactModification(index);
+    initContactModification(index);
     fillContactForm(contact, false);
     submitContactModification();
   }
@@ -104,7 +104,7 @@ public class ContactHelper extends HelperBase {
       String lastName = cells.get(1).getText();
       String firstName = cells.get(2).getText();
       int id = Integer.parseInt(row.findElement(By.tagName("input")).getAttribute("value"));
-      ContactData contact = new ContactData(id,firstName, lastName,  null, null);
+      ContactData contact = new ContactData().withId(id).withFirstName(firstName).withLastName(lastName);
       contacts.add(contact);
     }
     return contacts;

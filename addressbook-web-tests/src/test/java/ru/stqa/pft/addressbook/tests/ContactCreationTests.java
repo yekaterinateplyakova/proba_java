@@ -16,9 +16,10 @@ public class ContactCreationTests extends TestBase {
     public void ContactCreation2() {
         app.goTo().home();
         List<ContactData> before = app.contact().list();
-        ContactData contact = new ContactData("Alenushka56", "N", "Teplyakovaopo", "Kate", "automation developer",
-                "Koolspan", "Bethestda", "301-240-234", "301-3234-234", "234-435-342", "32423-2342", "yekaterin@gmail.com",
-                12, 11, "1989", "Test1");
+        ContactData contact = new ContactData().withFirstName("Yekaterina").withMiddleName("N").withLastName("Teplyakova")
+                .withNickname("Kate").withAddress("Koolspan").withCompany("koolspan").withHomecell("301250652")
+                .withTitle("automation developer").withEmail("yekaterin@gmail.com").withDate(12)
+                .withMonth(11).withYear("1989").withGroup("Test1");
         app.goTo().addNew();
         app.contact().create(contact);
         List<ContactData> after = app.contact().list();
