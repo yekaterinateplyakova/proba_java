@@ -33,8 +33,7 @@ public class ContactModificationTests  extends TestBase {
     ContactData contact = new ContactData().withId(modifiedContact.getId()).withFirstName("Yekaterina")
             .withMiddleName("N").withLastName("Teplyakova").withNickname("Kate").withAddress("Koolspan")
             .withCompany("koolspan").withHomecell("301250652").withTitle("automation developer")
-            .withEmail("yekaterin@gmail.com").withDate(12).withMonth(11).withYear("1989");
-    int index =before.size() - 1;
+            .withEmail("yekaterin@gmail.com").withDate(11).withMonth(11).withYear("1989");
     app.contact().modify(modifiedContact);
     app.goTo().home();
     Set<ContactData> after = app.contact().all();

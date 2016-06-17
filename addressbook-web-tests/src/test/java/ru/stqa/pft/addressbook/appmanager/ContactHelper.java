@@ -46,7 +46,7 @@ public class ContactHelper extends HelperBase {
       type(By.name("work"),contactData.getWorkphone());
       type(By.name("fax"),contactData.getFaxPhone());
       type(By.name("email"), contactData.getEmail());
-      selectFormlist(contactData);
+      //selectFormlist(contactData);
       selectFromDropDownList("//div[@id='content']/form/select[1]", contactData.getDate());
       selectFromDropDownList("//div[@id='content']/form/select[2]", contactData.getMonth());
       type(By.name("byear"),contactData.getYear());
@@ -69,7 +69,7 @@ public class ContactHelper extends HelperBase {
     click(By.xpath(".//*[@id='maintable']/tbody/tr["+ (index + 2) +"]/td[8]/a/img"));
   }
   public void initContactModificationById(int id) {
-    click(By.xpath(".//*[@id='maintable']/tbody/tr["+ (index + 2) +"]/td[8]/a/img"));
+    click(By.xpath("//input[@id = '" + id + "']/../following-sibling::td[7]/a"));
   }
 
   public void submitContactModification() {
@@ -95,7 +95,7 @@ public class ContactHelper extends HelperBase {
   }
 
   public void modify(ContactData contact) {
-    initContactModification(contact.getId());
+    initContactModificationById(contact.getId());
     fillContactForm(contact, false);
     submitContactModification();
   }
