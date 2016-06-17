@@ -12,7 +12,9 @@ import org.openqa.selenium.support.ui.Select;
 import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by kompu on 5/29/2016.
@@ -59,8 +61,14 @@ public class ContactHelper extends HelperBase {
   public void selectContact(int index) {
     wd.findElements(By.name("selected[]")).get(index).click();
   }
+  public void selectContactById(int id) {
+    wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
+  }
 
   public void initContactModification(int index) {
+    click(By.xpath(".//*[@id='maintable']/tbody/tr["+ (index + 2) +"]/td[8]/a/img"));
+  }
+  public void initContactModificationById(int id) {
     click(By.xpath(".//*[@id='maintable']/tbody/tr["+ (index + 2) +"]/td[8]/a/img"));
   }
 
@@ -86,18 +94,28 @@ public class ContactHelper extends HelperBase {
     submitContactModification();
   }
 
+  public void modify(ContactData contact) {
+    initContactModification(contact.getId());
+    fillContactForm(contact, false);
+    submitContactModification();
+  }
+
   public void delete(int index) {
     selectContact(index);
     deleteSelectedContact();
 
+  }
+  public void delete(ContactData contact) {
+    selectContactById(contact.getId());
+    deleteSelectedContact();
   }
 
   public boolean isThereAContact() {
     return isElementPresent(By.name("selected[]"));
   }
 
-  public List<ContactData> list() {
-    List<ContactData> contacts = new ArrayList<>();
+  public Set<ContactData> all() {
+    Set<ContactData> contacts = new HashSet<ContactData>();
     List<WebElement> rows = wd.findElements(By.name("entry"));
     for (WebElement row : rows) {
       List<WebElement> cells = row.findElements(By.tagName("td"));
@@ -109,4 +127,7 @@ public class ContactHelper extends HelperBase {
     }
     return contacts;
   }
+
+
+
 }
