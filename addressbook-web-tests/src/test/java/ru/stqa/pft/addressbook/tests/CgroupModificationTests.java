@@ -33,8 +33,8 @@ public class CgroupModificationTests extends TestBase{
             .withId(modifiedGroup.getId()).withName("Test3").withHeader("test2").withFooter("test3");
     app.group().modify(group);
     app.goTo().groupPage();
+    assertThat(app.group().count(), equalTo(before.size()));
     Groups after = app.group().all();
-    assertThat(after.size(), equalTo(before.size()));
     assertThat(after, equalTo(before.without(modifiedGroup).withAdded(group)));
   }
 

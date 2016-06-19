@@ -24,8 +24,8 @@ public class ContactCreationTests extends TestBase {
                 .withMonth(11).withYear("1989").withGroup("Test2");
         app.goTo().addNew();
         app.contact().create(contact);
+        assertThat(app.group().count(), equalTo(before.size()+1));
         Contacts after = app.contact().all();
-        assertThat(after.size(), equalTo(before.size() + 1));
         assertThat(after, equalTo(before.withAdded(contact.withId(after.stream().mapToInt((g)-> g.getId()).max().getAsInt()))));
 
     }
