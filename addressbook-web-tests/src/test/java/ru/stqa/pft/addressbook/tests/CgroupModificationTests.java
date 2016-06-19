@@ -34,8 +34,7 @@ public class CgroupModificationTests extends TestBase{
     app.group().modify(group);
     app.goTo().groupPage();
     Groups after = app.group().all();
-    Assert.assertEquals(after.size(), before.size());
-    Assert.assertEquals(before, after);
+    assertThat(after.size(), equalTo(before.size()));
     assertThat(after, equalTo(before.without(modifiedGroup).withAdded(group)));
   }
 

@@ -28,9 +28,7 @@ public class ContactModificationTests  extends TestBase {
               .withNickname("Kate").withAddress("Koolspan").withCompany("koolspan").withHomecell("301250652")
               .withTitle("automation developer")
               .withEmail("yekaterin@gmail.com").withDate(12).withMonth(11).withYear("1989"));
-
-
-    }
+   }
   }
   @Test
   public void testContactModification(){
@@ -43,7 +41,7 @@ public class ContactModificationTests  extends TestBase {
     app.contact().modify(modifiedContact);
     app.goTo().home();
     Contacts after = app.contact().all();
-    Assert.assertEquals(before.size(), after.size());
+    assertThat(after.size(), equalTo(before.size()));
     assertThat(after, equalTo(before.without(modifiedContact)
             .withAdded(contact)));
   }

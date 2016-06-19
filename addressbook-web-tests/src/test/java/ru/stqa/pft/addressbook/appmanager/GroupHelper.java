@@ -75,6 +75,7 @@ public class GroupHelper extends HelperBase{
   }
 
   public Groups all() {
+
     Groups groups = new Groups();
     List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
     for (WebElement element : elements){

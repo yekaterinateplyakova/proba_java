@@ -10,6 +10,9 @@ import ru.stqa.pft.addressbook.model.Groups;
 
 import java.util.Set;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 public class GroupDeletionTests extends TestBase {
 
     @BeforeMethod
@@ -26,9 +29,8 @@ public class GroupDeletionTests extends TestBase {
         GroupData deletedGroup = before.iterator().next();
         app.group().delete(deletedGroup);
        Groups after = app.group().all();
-        Assert.assertEquals(after.size(), before.size() - 1);
-
-        MatcherAssert.assertThat(before, CoreMatchers.equalTo(before.without(deletedGroup)));
+        assertThat(after.size(), equalTo(before.size() - 1));
+        assertThat(after, equalTo(before.without(deletedGroup)));
 
 
 
