@@ -11,6 +11,7 @@ public class ContactData {
   private String address;
   private String homecell;
   private  String mobile;
+  private  String allPhones;
   private  String workphone;
   private  String faxPhone;
   private  String email;
@@ -19,9 +20,16 @@ public class ContactData {
   private  String year;
   private String group;
 
+  public ContactData withAllPhones(String allPhones) {
+    this.allPhones = allPhones;
+    return this;
+  }
 
+  public String getAllPhones() {
+    return allPhones;
+  }
 
-  public ContactData withId(int id) {
+ public ContactData withId(int id) {
     this.id = id;
     return this;
   }
