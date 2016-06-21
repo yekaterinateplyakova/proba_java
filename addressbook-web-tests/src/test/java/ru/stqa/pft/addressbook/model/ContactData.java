@@ -218,7 +218,7 @@ public class ContactData {
     return address;
   }
 
-  public String getHomecell() {
+  public String getHomePhone() {
     return homecell;
   }
 

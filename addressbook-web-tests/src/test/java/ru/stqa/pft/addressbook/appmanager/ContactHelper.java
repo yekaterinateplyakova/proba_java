@@ -2,20 +2,14 @@ package ru.stqa.pft.addressbook.appmanager;
 
 //import com.sun.org.apache.bcel.internal.generic.Select;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import org.openqa.selenium.support.ui.Select;
 import ru.stqa.pft.addressbook.model.Contacts;
-import ru.stqa.pft.addressbook.model.GroupData;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by kompu on 5/29/2016.
@@ -43,7 +37,7 @@ public class ContactHelper extends HelperBase {
       type(By.name("title"),contactData.getTitle());
       type(By.name("company"),contactData.getCompany());
       type(By.name("address"),contactData.getAddress());
-      type(By.name("home"),contactData.getHomecell());
+      type(By.name("home"),contactData.getHomePhone());
       type(By.name("mobile"),contactData.getMobile());
       type(By.name("work"),contactData.getWorkphone());
       type(By.name("fax"),contactData.getFaxPhone());

@@ -17,23 +17,31 @@ public class ContactDetailsPage extends TestBase {
   public void testContactAddress() {
     app.goTo().home();
     ContactData contact = app.contact().all().iterator().next();
-
     ContactData contactInfoFromDetailsPage = app.contact().infoFromDetailsPage(contact);
     ContactData contactInfoFromEditPage = app.contact().infoFromEditForm(contact);
-
-    assertThat(contactInfoFromDetailsPage.getAllDetails(), equalTo(cleaned(mergeDetails(contactInfoFromEditPage))));
+    assertThat(cleaned(mergeDetails(contactInfoFromEditPage)), equalTo(contactInfoFromDetailsPage.getAllDetails()));
   }
 
   private String mergeDetails(ContactData contact) {
-    String h =  Arrays.asList(contact.getFirstName(), contact.getLastName(), contact.getAddress(),contact.getHomecell(),
-            contact.getMobile(), contact.getWorkphone(), contact.getEmail())
-            .stream().filter((s) -> !s.equals(""))
+    String homePhone = "";
+    String mobile = "";
+    String work = "";
+    if(!contact.getHomePhone().equals("")){
+       homePhone = "H: " + contact.getHomePhone();
+    }
+    if (!contact.getMobile().equals("")){
+      mobile = "M: " + contact.getMobile();
+    }
+    if (!contact.getWorkphone().equals("")){
+      work = "W: " + contact.getWorkphone();
+    }
+    return  Arrays.asList(contact.getFirstName() + " " + contact.getLastName(), contact.getAddress() + "\n", homePhone,
+            mobile, work,  "\n" + contact.getEmail()).stream().filter((s) -> !s.equals(""))
             .collect(Collectors.joining("\n"));
-    return  h;
   }
 
   public static String cleaned(String details){
-    return details.replace("H: ", "").replace("M: ","").replace("W: ","").replace("\n"," ").replace("  ", " ");
+    return details.replace("  ", " ");
 
   }
 }
