@@ -126,9 +126,10 @@ public class ContactHelper extends HelperBase {
       String lastName = cells.get(1).getText();
       String firstName = cells.get(2).getText();
       String allPhones = cells.get(5).getText();
+      String address = cells.get(3).getText();
       int id = Integer.parseInt(row.findElement(By.tagName("input")).getAttribute("value"));
       ContactData contact = new ContactData().withId(id).withFirstName(firstName).withLastName(lastName)
-              .withAllPhones(allPhones);
+              .withAllPhones(allPhones).withAddress(address);
 
       contactCache.add(contact);
     }
@@ -143,8 +144,9 @@ public class ContactHelper extends HelperBase {
     String home = wd.findElement(By.name("home")).getAttribute("value");
     String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
     String work = wd.findElement(By.name("work")).getAttribute("value");
+    String address = wd.findElement(By.name("address")).getAttribute("value");
     wd.navigate().back();
     return new ContactData().withId(contact.getId()).withFirstName(firstname)
-            .withLastName(lastname).withHomecell(home).withMobile(mobile).withWorkphone(work);
+            .withLastName(lastname).withHomecell(home).withMobile(mobile).withWorkphone(work).withAddress(address);
  }
 }
