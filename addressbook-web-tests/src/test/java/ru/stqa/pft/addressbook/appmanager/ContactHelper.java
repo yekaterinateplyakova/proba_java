@@ -154,4 +154,15 @@ public class ContactHelper extends HelperBase {
             .withLastName(lastname).withHomecell(home).withMobile(mobile).withWorkphone(work).withAddress(address)
             .withEmail(email).withEmail2(email2).withEmail3(email3);
  }
+
+  public ContactData infoFromDetailsPage(ContactData contact) {
+    goToDetailsPage(contact.getId());
+    String allDetails = wd.findElement(By.xpath(".//*[@id='content']")).getText();
+    wd.navigate().back();
+    return new ContactData().withId(contact.getId()).withAllDetails(allDetails);
+  }
+
+  private void goToDetailsPage(int id) {
+     click(By.xpath("//input[@id = '" + id + "']/../following-sibling::td[6]/a"));
+  }
 }

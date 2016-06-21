@@ -22,6 +22,17 @@ public class ContactData {
   private  String year;
   private String group;
   private String allEmails;
+  private String allDetails;
+
+  public ContactData withAllDetails(String allDetails) {
+    this.allDetails = allDetails;
+    return this;
+  }
+
+  public String getAllDetails() {
+
+    return allDetails;
+  }
 
   public ContactData withEmail2(String email2) {
     this.email2 = email2;
