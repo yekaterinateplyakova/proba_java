@@ -13,8 +13,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactCreationTests extends TestBase {
 
-
-
     @Test
     public void ContactCreation2() {
         app.goTo().home();
