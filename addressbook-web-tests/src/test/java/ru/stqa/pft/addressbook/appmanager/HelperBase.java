@@ -8,6 +8,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import ru.stqa.pft.addressbook.model.ContactData;
 
+import java.io.File;
+
 /**
  * Created by kompu on 5/29/2016.
  */
@@ -29,6 +31,13 @@ public class HelperBase {
       }
     }
   }
+
+  protected void attach(By locator, File file) {
+      if (file != null) {
+       wd.findElement(locator).sendKeys(file.getAbsolutePath());
+    }
+  }
+
   public void click(By locator) {
     wd.findElement(locator).click();
   }
