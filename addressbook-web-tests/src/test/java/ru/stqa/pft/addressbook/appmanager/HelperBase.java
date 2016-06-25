@@ -15,10 +15,16 @@ import java.io.File;
  */
 public class HelperBase {
 
+  public static ApplicationManager app;
   protected WebDriver wd;
 
-  public HelperBase(WebDriver wd) {
-    this.wd = wd;
+//  public HelperBase(WebDriver wd) {
+//    this.wd = wd;
+//  }
+
+  public HelperBase (ApplicationManager app){
+    this.app = app;
+    this.wd = app.wd;
   }
 
   protected void type(By locator, String text) {
@@ -64,6 +70,7 @@ public class HelperBase {
     try {
       wd.findElement(locator);
       return true;
+
     }
     catch (NoSuchElementException ex) {
       return false;

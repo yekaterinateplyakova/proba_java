@@ -18,8 +18,8 @@ import java.util.List;
 public class ContactHelper extends HelperBase {
   private Contacts contactCache = null;
 
-  public ContactHelper(WebDriver wd) {
-    super(wd);
+  public ContactHelper(ApplicationManager app) {
+    super(app);
   }
 
   public void submitContactCreation() {
