@@ -1,0 +1,23 @@
+<list>
+  <Contacts>
+    <firstName>testFirstName 0</firstName>
+    <lastName>testLN 0</lastName>
+    <address>address 0</address>
+    <homecell>home 23456543</homecell>
+    <mobile>phone234565432 0</mobile>
+  </Contacts>
+  <Contacts>
+    <firstName>testFirstName 1</firstName>
+    <lastName>testLN 1</lastName>
+    <address>address 1</address>
+    <homecell>home 23456543</homecell>
+    <mobile>phone234565432 1</mobile>
+  </Contacts>
+  <Contacts>
+    <firstName>testFirstName 2</firstName>
+    <lastName>testLN 2</lastName>
+    <address>address 2</address>
+    <homecell>home 23456543</homecell>
+    <mobile>phone234565432 2</mobile>
+  </Contacts>
+</list>

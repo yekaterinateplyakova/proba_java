@@ -1,0 +1,23 @@
+[
+  {
+    "firstName": "testFirstName 0",
+    "lastName": "testLN 0",
+    "address": "address 0",
+    "homecell": "home 23456543",
+    "mobile": "phone234565432 0"
+  },
+  {
+    "firstName": "testFirstName 1",
+    "lastName": "testLN 1",
+    "address": "address 1",
+    "homecell": "home 23456543",
+    "mobile": "phone234565432 1"
+  },
+  {
+    "firstName": "testFirstName 2",
+    "lastName": "testLN 2",
+    "address": "address 2",
+    "homecell": "home 23456543",
+    "mobile": "phone234565432 2"
+  }
+]
