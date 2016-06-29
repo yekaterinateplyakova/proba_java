@@ -35,6 +35,7 @@ public class ContactData {
   @XStreamOmitField
   private  int month;
   private  String year;
+  @Expose
   private String group;
   private String allEmails;
   private String allDetails;
