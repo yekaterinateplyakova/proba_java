@@ -1,5 +1,7 @@
 package ru.stqa.pft.addressbook.tests;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.thoughtworks.xstream.XStream;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -33,7 +35,21 @@ public class ContactCreationTests extends TestBase {
         List<ContactData> contacts = (List<ContactData>) xStream.fromXML(xml);
         return contacts.stream().map((c) -> new Object[] {c}).collect(Collectors.toList()).iterator();
     }
-    @Test (dataProvider = "validContacts")
+    @DataProvider
+    public Iterator<Object[]> validContactsFromJson() throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/cont" +
+                "acts.json")));
+        String json = "";
+        String line = reader.readLine();
+        while (line != null){
+            json += line;
+            line = reader.readLine();
+        }
+        Gson gson = new Gson();
+        List<ContactData> contacts = gson.fromJson(json, new TypeToken<List<ContactData>>(){}.getType());
+        return contacts.stream().map((c) -> new Object[] {c}).collect(Collectors.toList()).iterator();
+    }
+    @Test (dataProvider = "validContactsFromJson")
     public void ContactCreation2(ContactData contact) {
         app.goTo().home();
         Contacts before = app.contact().all();
