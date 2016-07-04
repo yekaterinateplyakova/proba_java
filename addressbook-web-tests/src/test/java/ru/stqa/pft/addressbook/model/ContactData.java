@@ -3,50 +3,110 @@ package ru.stqa.pft.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 
 @XStreamAlias("Contacts")
+@Entity
+@Table(name = "addressbook")
 public class ContactData {
+
   @XStreamOmitField
+  @Id
+  @Column (name = "id")
   private int id = Integer.MAX_VALUE;
+
   @Expose
+  @Column (name = "firstname")
   private String firstName;
+
   private  String middleName;
+
   @Expose
+  @Column (name = "lastname")
   private String lastName;
+
   private  String nickname;
+
   private  String title;
+
   private  String company;
+
   @Expose
+  @Column (name = "address")
+  @Type(type = "text")
   private String address;
+
   @Expose
+  @Column (name = "home")
+  @Type(type = "text")
   private String homecell;
+
   @Expose
+  @Column (name = "mobile")
+  @Type(type = "text")
   private  String mobile;
+
+  @Transient
   private  String allPhones;
+
+  @Column (name = "work")
+  @Type(type = "text")
   private  String workphone;
+
+  @Column (name = "fax")
+  @Type(type = "text")
   private  String faxPhone;
+
+  @Column (name = "email")
+  @Type(type = "text")
   private  String email;
+
+  @Column (name = "email2")
+  @Type(type = "text")
   private  String email2;
+
+  @Column (name = "email3")
+  @Type(type = "text")
   private  String email3;
+
+
+
   @XStreamOmitField
-  private  int date;
-  @XStreamOmitField
+  @Column (name = "bmonth")
+  @Transient
   private  int month;
+
+  @Column (name = "byear")
   private  String year;
+
   @Expose
+  @Transient
   private String group;
+
+  @Transient
   private String allEmails;
+  @Transient
   private String allDetails;
-  private File photo;
+
+  @Column (name = "photo")
+  @Type(type = "text")
+  private String photo;
+
+  @XStreamOmitField
+  @Column (name = "bday")
+  //@Type(type = "tinyint")
+  @Transient
+  private  short date;
 
   public File getPhoto() {
-    return photo;
+    return new File (photo);
   }
 
   public ContactData withPhoto(File photo) {
-    this.photo = photo;
+    this.photo = photo.getPath();
     return this;
   }
 
@@ -184,7 +244,7 @@ public class ContactData {
   }
 
   public ContactData withDate(int date) {
-    this.date = date;
+    this.date = (short)(date);
     return this;
   }
 
