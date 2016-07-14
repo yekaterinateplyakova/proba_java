@@ -36,7 +36,6 @@ public class ContactModificationTests  extends TestBase {
   public void testContactModification(){
     Contacts before = app.db().contacts();
     ContactData modifiedContact = before.iterator().next();
-    File photo = new File("src/test/resources/komp.jpg");
     ContactData contact = new ContactData().withId(modifiedContact.getId()).withFirstName("Tanya")
             .withMiddleName("N").withLastName("Teplyakova").withNickname("Kate").withAddress("Koolspan")
             .withCompany("koolspan").withHomecell("301250652").withTitle("automation developer")
@@ -45,11 +44,10 @@ public class ContactModificationTests  extends TestBase {
     app.contact().modify(contact);
     app.goTo().home();
     assertThat(app.group().count(), equalTo(before.size()));
-    System.out.println("contacts after:");
-
     Contacts after = app.db().contacts();
-    System.out.println("groups: after");
-    System.out.println(after);
     assertThat(after, equalTo(before.without(modifiedContact).withAdded(contact)));
+    verifyContactListInUI();
   }
+
+
 }

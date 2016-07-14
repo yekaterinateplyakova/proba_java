@@ -11,6 +11,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import ru.stqa.pft.addressbook.appmanager.ApplicationManager;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
@@ -60,6 +61,15 @@ public class TestBase {
               .collect(Collectors.toSet())));
     }
   }
+
+  public void verifyContactListInUI() {
+    if (Boolean.getBoolean("verifyUI")){
+      Contacts dbcontacts = app.db().contacts();
+      Contacts uicontacts = app.contact().all();
+      assertThat(uicontacts, equalTo(dbcontacts));
+    }
+  }
+
 
 
 }
