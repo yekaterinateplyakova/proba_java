@@ -66,6 +66,9 @@ public class HelperBase {
   public void selectFromDropDownList(String selectLocator, int optionText) {
     new Select(wd.findElement(By.xpath(selectLocator))).selectByIndex(optionText);
   }
+  public void selectFromDropDownList(String selectLocator, String optionText) {
+    new Select(wd.findElement(By.xpath(selectLocator))).selectByVisibleText(optionText);
+  }
 
   protected boolean isElementPresent(By locator) {
     try {

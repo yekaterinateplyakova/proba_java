@@ -8,9 +8,14 @@ import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import org.openqa.selenium.support.ui.Select;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Created by kompu on 5/29/2016.
@@ -73,6 +78,7 @@ public class ContactHelper extends HelperBase {
   public void initContactModificationById(int id) {
     click(By.xpath("//input[@id = '" + id + "']/../following-sibling::td[7]/a"));
   }
+
 
   public void submitContactModification() {
     click(By.name("update"));
@@ -164,5 +170,23 @@ public class ContactHelper extends HelperBase {
 
   private void goToDetailsPage(int id) {
      click(By.xpath("//input[@id = '" + id + "']/../following-sibling::td[6]/a"));
+  }
+
+  public void verifyContactWasAddedToAGroup(ContactData contact, GroupData newGroup) {
+    ArrayList groupsOfContact = new ArrayList(contact.getGroups());
+    Boolean wasAdded = false;
+    for (int i = 1; i < contact.getGroups().size(); i++){
+      if (groupsOfContact.get(i).equals(newGroup)){
+        wasAdded = true;
+        break;
+      }
+      assertThat(wasAdded, equalTo(true));
+    }
+  }
+
+  public void addGroup(ContactData contact, GroupData newGroup) {
+    selectContactById(contact.getId());
+    selectFromDropDownList(".//*[@id='content']/form[2]/div[4]/select", newGroup.getName());
+    click(By.name("add"));
   }
 }
