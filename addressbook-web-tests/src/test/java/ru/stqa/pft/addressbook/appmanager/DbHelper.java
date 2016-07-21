@@ -47,16 +47,14 @@ public class DbHelper {
     session.close();
     return new  Contacts(result);
   }
-  public Groups groupsOfContacts(ContactData contact) {
+  public ContactData contactWithACertainID(ContactData contact) {
     Session session = sessionFactory.openSession();
     session.beginTransaction();
-    List<GroupData> result = session.createQuery("from GroupData where id = " + contact.getId()).list();
-    for (GroupData groupsOfContacts : result) {
-      System.out.println("groups of contacts: " + groupsOfContacts);
-    }
+    ContactData result = (ContactData)session.createQuery("from ContactData where deprecated = '0000-00-00 00:00:00' and id = " + contact.getId()).uniqueResult();
+    System.out.println(result);
     session.getTransaction().commit();
     session.close();
-    return new Groups(result);
+    return result;
   }
 
 

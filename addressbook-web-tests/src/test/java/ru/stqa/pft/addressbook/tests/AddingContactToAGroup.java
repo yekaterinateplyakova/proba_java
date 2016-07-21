@@ -23,7 +23,7 @@ public class AddingContactToAGroup extends TestBase {
     Groups before = contact.getGroups();
     app.goTo().home();
     app.contact().addGroup(contact, newGroup);
-    Groups after = app.db().contacts().iterator().next().getGroups();
+    Groups after = app.db().contactWithACertainID(contact).getGroups();
     assertThat(after, equalTo(before.withAdded(newGroup.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
 
     System.out.println("groups of the contact before" + before);
