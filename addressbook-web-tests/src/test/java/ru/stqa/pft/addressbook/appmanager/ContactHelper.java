@@ -185,6 +185,7 @@ public class ContactHelper extends HelperBase {
   }
 
   public void addGroup(ContactData contact, GroupData newGroup) {
+    app.goTo().home();
     selectContactById(contact.getId());
     selectFromDropDownList(".//*[@id='content']/form[2]/div[4]/select", newGroup.getName());
     click(By.name("add"));

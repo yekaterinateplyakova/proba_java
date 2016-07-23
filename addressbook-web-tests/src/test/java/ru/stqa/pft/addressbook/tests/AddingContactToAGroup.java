@@ -7,6 +7,10 @@ import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
+import java.nio.channels.Pipe;
+import java.security.acl.Group;
+import java.util.List;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -19,12 +23,27 @@ public class AddingContactToAGroup extends TestBase {
   @Test
   public void AddingContactToAGroup(){
     GroupData newGroup = app.db().groups().iterator().next();
+    Groups groups = app.db().groups();
+    System.out.println("groups from db " + groups);
     ContactData contact = app.db().contacts().iterator().next();
     Groups before = contact.getGroups();
-    app.goTo().home();
-    app.contact().addGroup(contact, newGroup);
+    Groups contactGroups = contact.getGroups();
+    GroupData groupToAdd = null;
+    for (GroupData group: groups){
+      groupToAdd = group;
+      for (GroupData contactGroup: contactGroups){
+        if (groupToAdd.equals(contactGroup)){
+          groupToAdd = null;
+          break;
+        }
+      }
+      if (groupToAdd!=null){
+        app.contact().addGroup(contact, groupToAdd);
+        break;
+      }
+    }
     Groups after = app.db().contactWithACertainID(contact).getGroups();
-    assertThat(after, equalTo(before.withAdded(newGroup.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
+    assertThat(after, equalTo(before.withAdded(groupToAdd.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
 
     System.out.println("groups of the contact before" + before);
     System.out.println("groups of the contact after" + after);
