@@ -19,12 +19,23 @@ public class AddingContactToAGroup extends TestBase {
   @Test
   public void AddingContactToAGroup(){
     Groups groups = app.db().groups();
-    System.out.println("groups from db " + groups);
     ContactData contact = app.db().contacts().iterator().next();
     Groups before = contact.getGroups();
     GroupData groupToAdd = null;
-    app.contact().addContactToAGroupIfItIsNotInThisGroup(groups,contact, groupToAdd);
-
+    Groups contactGroups = contact.getGroups();
+    for (GroupData group: groups){
+      groupToAdd = group;
+      for (GroupData contactGroup: contactGroups){
+        if (groupToAdd.equals(contactGroup)){
+          groupToAdd = null;
+          break;
+        }
+      }
+      if (groupToAdd!=null){
+        app.contact().addGroup(contact, groupToAdd);
+        break;
+      }
+    }
     if (groupToAdd==null){
       LocalDateTime ldt = LocalDateTime.now();
       groupToAdd = new GroupData().withName("NewGroup" + ldt.toString());
@@ -33,7 +44,6 @@ public class AddingContactToAGroup extends TestBase {
       Groups after = app.db().contactWithACertainID(contact).getGroups();
       groupToAdd = groupToAdd.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt());
     }
-
     Groups after = app.db().contactWithACertainID(contact).getGroups();
     assertThat(after, equalTo(before.withAdded(groupToAdd)));
   }
