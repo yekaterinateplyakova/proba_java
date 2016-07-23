@@ -9,8 +9,10 @@ import ru.stqa.pft.addressbook.model.ContactData;
 import org.openqa.selenium.support.ui.Select;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.io.File;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -189,5 +191,26 @@ public class ContactHelper extends HelperBase {
     selectContactById(contact.getId());
     selectFromDropDownList(".//*[@id='content']/form[2]/div[4]/select", newGroup.getName());
     click(By.name("add"));
+  }
+
+  public void addContactToAGroupIfItIsNotInThisGroup(Groups groups, ContactData contact, GroupData groupToAdd) {
+    Groups contactGroups = contact.getGroups();
+    for (GroupData group: groups){
+      groupToAdd = group;
+      for (GroupData contactGroup: contactGroups){
+        if (groupToAdd.equals(contactGroup)){
+          groupToAdd = null;
+          break;
+        }
+      }
+      if (groupToAdd!=null){
+        app.contact().addGroup(contact, groupToAdd);
+        break;
+      }
+    }
+
+  }
+
+  public void createGroupAndAddItToAGroup(GroupData groupToAdd, ContactData contact) {
   }
 }
